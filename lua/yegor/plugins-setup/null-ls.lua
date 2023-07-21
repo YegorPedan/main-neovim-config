@@ -15,7 +15,7 @@ null_ls.setup({
 	-- setup formatters & linters
 	sources = {
 		formatting.clang_format,
-		formatting.prettier, -- js/ts formatter
+		formatting.autopep8, -- python formater
 		formatting.stylua, -- lua formatter
 		diagnostics.eslint_d.with({ -- js/ts linter
 			-- only enable eslint if root has .eslintrc.js (not in youtube nvim video)

@@ -34,8 +34,26 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-vim.keymap.set("n", "<leader>cc", "<cmd>!gcc -Wall -Wextra % -o %:r.out -std=c11 -g -O0<CR>")
-vim.keymap.set("n", "<leader>rp", "<cmd>!./%:r.out<CR>")
+
+-- vim.keymap.set("n", "<leader>cc", "<cmd>!gcc -Wall -Wextra % -o %:r.out -std=c11 -g -O0<CR>")
+-- vim.keymap.set("n", "<leader>rp", "<cmd>!./%:r.out<CR>")
+function RunFile()
+	-- Get the file extension of the current buffer
+	local file_extension = vim.fn.expand("%:e")
+
+	-- Check if it's a Python file
+	if file_extension == "py" then
+		vim.cmd("!python %")
+	-- Check if it's a C file
+	elseif file_extension == "c" then
+		vim.cmd("!gcc -Wall -Wextra % -o %:r.out -std=c11 -g -O0 && ./%:r.out")
+	else
+		print("Unsupported file type.")
+	end
+end
+
+-- Set the keymap for running the file
+vim.keymap.set("n", "<leader>rp", "<cmd>lua RunFile()<CR>")
 
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
@@ -61,7 +79,7 @@ vim.keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>")
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
 
-vim.keymap.set("n", "<leader>cd", "<cmd>cd %:p:h<CR>")
+-- vim.keymap.set("n", "<leader>cd", "<cmd>cd %:p:h<CR>")
 
-vim.keymap.set("n", "<leader>o", "o<Esc>0")
-vim.keymap.set("n", "<leader>O", "O<Esc>0")
+-- vim.keymap.set("n", "<leader>o", "o<Esc>0")
+-- vim.keymap.set("n", "<leader>O", "O<Esc>0")

@@ -76,6 +76,7 @@ require("mason-null-ls").setup({
 	ensure_installed = {
 		"stylua", -- lua formatter
 		"clang-format",
+		"autopep8",
 	},
 	-- auto-install configured formatters & linters (with null-ls)
 	automatic_installation = true,
