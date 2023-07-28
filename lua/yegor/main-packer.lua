@@ -11,13 +11,6 @@ return require("packer").startup(function(use)
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
-	use({
-		"Mofiqul/dracula.nvim",
-		as = "dracula-nvim",
-		config = function()
-			vim.cmd("colorscheme dracula")
-		end,
-	})
 	--
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 	use("mbbill/undotree")
@@ -63,14 +56,6 @@ return require("packer").startup(function(use)
 	use("windwp/nvim-autopairs")
 	use("lewis6991/gitsigns.nvim")
 
-	use({
-		"folke/trouble.nvim",
-		requires = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("trouble").setup()
-		end,
-	})
-
 	-- remember keys
 	use({
 		"folke/which-key.nvim",
@@ -84,6 +69,14 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
+
+  -- Lua-based config (init.lua)
+  use {
+    "folke/tokyonight.nvim",
+    config = function()
+      vim.cmd("colorscheme tokyonight")
+    end
+  }
 
 	use("m4xshen/smartcolumn.nvim")
 
