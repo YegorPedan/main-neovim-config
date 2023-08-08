@@ -1,46 +1,59 @@
-vim.cmd([[packadd packer.nvim]])
+-- Initialize Packer
+local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
+if not packer_exists then
+	vim.fn.system({
+		"git",
+		"clone",
+		"https://github.com/wbthomason/packer.nvim",
+		"~/.local/share/nvim/site/pack/packer/start/packer.nvim",
+	})
+end
 
-return require("packer").startup(function(use)
+-- Load plugins
+require("packer").startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	-- Telescope and its dependencies
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim" },
+		config = function()
+			require("telescope").load_extension("fzf")
+		end,
 	})
 
-	--
-	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+	-- nvim-treesitter
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+	})
+
 	use("mbbill/undotree")
 	use("tpope/vim-fugitive")
+
+	-- LSP setup
 	use({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v1.x",
 		requires = {
-			-- LSP Support
-			{ "neovim/nvim-lspconfig" }, -- Required
-			{ "williamboman/mason.nvim" }, -- Optional
-			{ "williamboman/mason-lspconfig.nvim" }, -- Optional
-
-			-- Autocompletion
-			{ "hrsh7th/nvim-cmp" }, -- Required
-			{ "hrsh7th/cmp-nvim-lsp" }, -- Required
-			{ "hrsh7th/cmp-buffer" }, -- Optional
-			{ "hrsh7th/cmp-path" }, -- Optional
-			{ "saadparwaiz1/cmp_luasnip" }, -- Optional
-			{ "hrsh7th/cmp-nvim-lua" }, -- Optional
-
-			-- Snippets
-			{ "L3MON4D3/LuaSnip" }, -- Required
-			{ "rafamadriz/friendly-snippets" }, -- Optional
+			"neovim/nvim-lspconfig",
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"hrsh7th/nvim-cmp",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-nvim-lua",
+			"L3MON4D3/LuaSnip",
+			"rafamadriz/friendly-snippets",
 		},
 	})
-	use("onsails/lspkind.nvim")
-	use("glepnir/lspsaga.nvim")
 
-	use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
+	use("onsails/lspkind.nvim")
+	use({ "glepnir/lspsaga.nvim", commit = "4f075452c466df263e69ae142f6659dcf9324bf6" })
+	use("jose-elias-alvarez/null-ls.nvim")
 	use("jayp0521/mason-null-ls.nvim")
 
 	use("christoomey/vim-tmux-navigator")
@@ -50,37 +63,51 @@ return require("packer").startup(function(use)
 	use("vim-scripts/ReplaceWithRegister")
 	use("numToStr/Comment.nvim")
 
-	use("nvim-tree/nvim-tree.lua")
-	use("kyazdani42/nvim-web-devicons")
+	-- File Explorer
+	use({
+		"nvim-tree/nvim-tree.lua",
+		requires = "kyazdani42/nvim-web-devicons",
+	})
 
 	use("windwp/nvim-autopairs")
 	use("lewis6991/gitsigns.nvim")
 
-	-- remember keys
+	-- Which-Key
 	use({
 		"folke/which-key.nvim",
 		config = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
-			require("which-key").setup({
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
-			})
+			require("which-key").setup({})
 		end,
 	})
 
-  -- Lua-based config (init.lua)
-  use {
-    "folke/tokyonight.nvim",
-    config = function()
-      vim.cmd("colorscheme tokyonight")
-    end
-  }
+	-- Tokyo Night colorscheme
+	use({
+		"folke/tokyonight.nvim",
+		config = function()
+			vim.cmd([[colorscheme tokyonight]])
+		end,
+	})
 
 	use("m4xshen/smartcolumn.nvim")
 
 	use("p00f/nvim-ts-rainbow")
 
-	use("nvim-lualine/lualine.nvim")
+	use("folke/trouble.nvim")
+	-- Lualine
+	use({
+		"hoob3rt/lualine.nvim",
+		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		config = function()
+			require("lualine").setup({
+				options = {
+					theme = "tokyonight",
+					section_separators = { left = "", right = "" },
+					component_separators = { left = "", right = "" },
+				},
+				extensions = { "nvim-tree" },
+			})
+		end,
+	})
 end)

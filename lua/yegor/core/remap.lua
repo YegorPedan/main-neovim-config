@@ -1,17 +1,8 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>rr", vim.cmd.TroubleToggle)
+vim.api.nvim_set_keymap("n", "<leader>rx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
 
 vim.keymap.set("n", "x", '"_x')
-
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -35,8 +26,6 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- vim.keymap.set("n", "<leader>cc", "<cmd>!gcc -Wall -Wextra % -o %:r.out -std=c11 -g -O0<CR>")
--- vim.keymap.set("n", "<leader>rp", "<cmd>!./%:r.out<CR>")
 function RunFile()
 	-- Get the file extension of the current buffer
 	local file_extension = vim.fn.expand("%:e")
@@ -54,9 +43,6 @@ end
 
 -- Set the keymap for running the file
 vim.keymap.set("n", "<leader>rp", "<cmd>lua RunFile()<CR>")
-
-vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>sv", "<C-w>v")
 vim.keymap.set("n", "<leader>sh", "<C-w>s")
