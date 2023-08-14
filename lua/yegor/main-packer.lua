@@ -83,14 +83,15 @@ require("packer").startup(function(use)
 	})
 
 	-- Tokyo Night colorscheme
-	use({
-		"folke/tokyonight.nvim",
-		config = function()
-			vim.cmd([[colorscheme tokyonight]])
-		end,
-	})
+	use("folke/tokyonight.nvim")
 
 	use("m4xshen/smartcolumn.nvim")
+
+	-- theme switcher
+	use("zaldih/themery.nvim")
+
+	--dracula
+	use("Mofiqul/dracula.nvim")
 
 	use("p00f/nvim-ts-rainbow")
 
