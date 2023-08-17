@@ -4,6 +4,8 @@ vim.api.nvim_set_keymap("n", "<leader>rx", "<cmd>TroubleToggle<cr>", { silent = 
 
 vim.keymap.set("n", "x", '"_x')
 
+vim.keymap.set("n", "<leader>o", "o<Esc>0")
+vim.keymap.set("n", "<leader>O", "O<Esc>0")
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
@@ -65,7 +67,5 @@ vim.keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>")
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
 
+vim.keymap.set("n", "<leader>th", "<cmd>Themery<cr>")
 -- vim.keymap.set("n", "<leader>cd", "<cmd>cd %:p:h<CR>")
-
--- vim.keymap.set("n", "<leader>o", "o<Esc>0")
--- vim.keymap.set("n", "<leader>O", "O<Esc>0")

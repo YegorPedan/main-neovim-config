@@ -93,7 +93,11 @@ require("packer").startup(function(use)
 	--dracula
 	use("Mofiqul/dracula.nvim")
 
+	use({ "ellisonleao/gruvbox.nvim" })
+
 	use("p00f/nvim-ts-rainbow")
+
+	use("shaunsingh/nord.nvim")
 
 	use("folke/trouble.nvim")
 	-- Lualine
