@@ -56,8 +56,13 @@ require("packer").startup(function(use)
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("jayp0521/mason-null-ls.nvim")
 
-	use("christoomey/vim-tmux-navigator")
 	use("szw/vim-maximizer")
+	use({
+		"aserowy/tmux.nvim",
+		config = function()
+			return require("tmux").setup()
+		end,
+	})
 
 	use("tpope/vim-surround")
 	use("vim-scripts/ReplaceWithRegister")
